@@ -12,8 +12,21 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "We need access to your photos to attach images to cards.",
+          "cameraPermission": "We need access to your camera to take photos for cards."
+        }
+      ]
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "We need access to your photos to attach images to cards.",
+        "NSCameraUsageDescription": "We need access to your camera to take photos for cards."
+      }
     },
     "android": {
       "adaptiveIcon": {
