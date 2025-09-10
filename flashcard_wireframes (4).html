@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App - Black & White Wireframes</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sketch-black: #2c2c2c;
+            --sketch-gray: #666666;
+            --sketch-light-gray: #cccccc;
+            --sketch-bg: #f8f8f8;
+            --sketch-white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Kalam', cursive;
+            background: var(--sketch-bg);
+            color: var(--sketch-black);
+            line-height: 1.4;
+        }
+        
+        .wireframe-container {
+            background: var(--sketch-bg);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .wireframe-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--sketch-black);
+            text-decoration: underline;
+            text-decoration-style: wavy;
+        }
+        
+        .screen-container {
+            background: var(--sketch-white);
+            border: 3px solid var(--sketch-black);
+            border-radius: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            position: relative;
+            transform: rotate(-0.5deg);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .screen-container:nth-child(even) {
+            transform: rotate(0.5deg);
+        }
+        
+        .screen-container:nth-child(3n) {
+            transform: rotate(-0.3deg);
+        }
+        
+        .phone-frame {
+            border: 4px solid var(--sketch-black);
+            border-radius: 25px;
+            padding: 15px;
+            background: var(--sketch-white);
+            max-width: 350px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: var(--sketch-black);
+            border-radius: 3px;
+        }
+        
+        .phone-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 6px;
+            background: var(--sketch-black);
+            border-radius: 3px;
+        }
+        
+        .screen-header {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-light-gray);
+            padding: 15px;
+            margin: -15px -15px 15px -15px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .screen-header::before {
+            content: '< BACK';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            font-weight: 400;
+        }
+        
+        .screen-header::after {
+            content: '⋮';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        .home-header::before,
+        .home-header::after {
+            content: none;
+        }
+        
+        .home-header::before {
+            content: '🔍';
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .home-header::after {
+            content: '⚙';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .sketch-element {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            position: relative;
+            transform: rotate(-0.2deg);
+        }
+        
+        .sketch-element:nth-child(even) {
+            transform: rotate(0.2deg);
+        }
+        
+        .sketch-button {
+            border: 3px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            transform: rotate(-0.1deg);
+        }
+        
+        .sketch-button:hover {
+            background: var(--sketch-light-gray);
+        }
+        
+        .sketch-button.primary {
+            background: var(--sketch-black);
+            color: var(--sketch-white);
+        }
+        
+        .sketch-button.secondary {
+            background: var(--sketch-light-gray);
+        }
+        
+        .search-bar {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        .search-bar::before {
+            content: '🔍 Search...';
+            color: var(--sketch-gray);
+            font-style: italic;
+        }
+        
+        .deck-item {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            position: relative;
+            transform: rotate(-0.1deg);
+        }
+        
+        .deck-item:nth-child(even) {
+            transform: rotate(0.1deg);
+        }
+        
+        .deck-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--sketch-black);
+            border-radius: 2px 0 0 2px;
+        }
+        
+        .flashcard-sketch {
+            border: 3px solid var(--sketch-black);
+            background: var(--sketch-white);
+            min-height: 200px;
+            margin: 20px 0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform: rotate(-0.3deg);
+        }
+        
+        .flashcard-sketch::before {
+            content: 'TAP TO FLIP';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 10px;
+            color: var(--sketch-gray);
+            transform: rotate(15deg);
+        }
+        
+        .progress-sketch {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            height: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .progress-sketch::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 30%;
+            background: var(--sketch-black);
+            border-radius: 8px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .stat-item {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            transform: rotate(-0.1deg);
+        }
+        
+        .stat-item:nth-child(2) {
+            transform: rotate(0.1deg);
+        }
+        
+        .stat-item:nth-child(3) {
+            transform: rotate(-0.05deg);
+        }
+        
+        .form-element {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            min-height: 40px;
+            position: relative;
+        }
+        
+        .form-element.textarea {
+            min-height: 80px;
+        }
+        
+        .image-placeholder {
+            border: 2px dashed var(--sketch-black);
+            background: var(--sketch-white);
+            min-height: 100px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sketch-gray);
+            font-style: italic;
+            transform: rotate(-0.2deg);
+        }
+        
+        .nav-tabs-sketch {
+            display: flex;
+            margin: 15px 0;
+            border-bottom: 2px solid var(--sketch-black);
+        }
+        
+        .nav-tab {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 8px 15px;
+            margin-right: 5px;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            transform: rotate(-0.1deg);
+        }
+        
+        .nav-tab.active {
+            background: var(--sketch-black);
+            color: var(--sketch-white);
+        }
+        
+        .screen-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            text-decoration: underline;
+            text-decoration-style: wavy;
+        }
+        
+        .annotation {
+            position: absolute;
+            font-size: 12px;
+            color: var(--sketch-gray);
+            font-style: italic;
+            background: var(--sketch-bg);
+            padding: 2px 5px;
+            border-radius: 3px;
+            border: 1px solid var(--sketch-gray);
+        }
+        
+        .annotation.top-right {
+            top: -10px;
+            right: 10px;
+            transform: rotate(5deg);
+        }
+        
+        .annotation.bottom-left {
+            bottom: -10px;
+            left: 10px;
+            transform: rotate(-3deg);
+        }
+        
+        .annotation.side {
+            right: -120px;
+            top: 50%;
+            transform: translateY(-50%) rotate(5deg);
+            width: 100px;
+        }
+        
+        .card-list-item {
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 6px;
+            position: relative;
+            transform: rotate(-0.05deg);
+        }
+        
+        .card-list-item:nth-child(even) {
+            transform: rotate(0.05deg);
+        }
+        
+        .card-list-item::after {
+            content: '👁';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .badge-sketch {
+            display: inline-block;
+            border: 2px solid var(--sketch-black);
+            background: var(--sketch-white);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 2px;
+        }
+        
+        .badge-sketch.success {
+            background: var(--sketch-black);
+            color: var(--sketch-white);
+        }
+        
+        .answer-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .desktop-layout {
+            display: none;
+        }
+        
+        @media (min-width: 992px) {
+            .desktop-layout {
+                display: block;
+            }
+            
+            .mobile-only {
+                display: none;
+            }
+            
+            .screens-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+            
+            .screen-container {
+                margin: 20px 0;
+            }
+        }
+        
+        .handwritten {
+            font-family: 'Kalam', cursive;
+            font-weight: 400;
+        }
+        
+        .bold-handwritten {
+            font-family: 'Kalam', cursive;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-container">
+        <h1 class="wireframe-title">Flashcard App - Mobile Wireframes</h1>
+        
+        <div class="desktop-layout">
+            <div class="screens-grid">
+                <!-- All screens will be arranged in a grid for desktop -->
+        </div>
+        </div>
+        
+        <!-- Screen 1: Home Screen -->
+        <div class="screen-container">
+            <div class="screen-title">1. Home Screen (Deck List)</div>
+            <div class="phone-frame">
+                <div class="screen-header home-header bold-handwritten">
+                    StudyVibes - My Flashcards
+                </div>
+                
+                <div class="search-bar"></div>
+                
+                <div class="sketch-button primary bold-handwritten">
+                    + Create New Deck
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="bold-handwritten">290</div>
+                        <div class="handwritten">Cards</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten">12</div>
+                        <div class="handwritten">Sessions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten">76%</div>
+                        <div class="handwritten">Avg Score</div>
+                    </div>
+                </div>
+                
+                <!-- Deck List -->
+                <div class="handwritten" style="margin: 15px 0; font-weight: 700; color: #666;">Your Study Decks (4)</div>
+                
+                <div class="deck-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="bold-handwritten">Biology Chapter 5</div>
+                            <div class="handwritten" style="color: #666; font-size: 12px;">24 cards • Last studied 2 days ago</div>
+                        </div>
+                        <div class="badge-sketch success">85%</div>
+                    </div>
+                </div>
+                
+                <div class="deck-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="bold-handwritten">Spanish Vocabulary</div>
+                            <div class="handwritten" style="color: #666; font-size: 12px;">156 cards • Last studied 5 days ago</div>
+                        </div>
+                        <div class="badge-sketch">72%</div>
+                    </div>
+                </div>
+                
+                <div class="deck-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="bold-handwritten">Chemistry Formulas</div>
+                            <div class="handwritten" style="color: #666; font-size: 12px;">67 cards • Never studied</div>
+                        </div>
+                        <div class="badge-sketch">New</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="annotation top-right">Main navigation & deck overview</div>
+        </div>
+
+        <!-- Screen 2: Deck Detail -->
+        <div class="screen-container">
+            <div class="screen-title">2. Deck Detail Screen</div>
+            <div class="phone-frame">
+                <div class="screen-header bold-handwritten">
+                    Biology Chapter 5
+                </div>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <div class="bold-handwritten" style="font-size: 1.4em;">Cell Structure & Function</div>
+                </div>
+                
+                <div class="sketch-button primary bold-handwritten">
+                    ▶ Start Study Session
+                </div>
+                
+                <div class="sketch-button secondary bold-handwritten">
+                    + Add New Card
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="bold-handwritten">24</div>
+                        <div class="handwritten">Cards</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten">85%</div>
+                        <div class="handwritten">Last Score</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten">3</div>
+                        <div class="handwritten">Sessions</div>
+                    </div>
+                </div>
+                
+                <div class="search-bar"></div>
+                
+                <div class="handwritten" style="margin: 15px 0; font-weight: 700; color: #666;">Cards in this deck</div>
+                
+                <!-- Card List -->
+                <div class="card-list-item">
+                    <div class="bold-handwritten">What are the main organelles?</div>
+                    <div class="handwritten" style="color: #666; font-size: 12px;">Nucleus, mitochondria, endoplasmic...</div>
+                </div>
+                
+                <div class="card-list-item">
+                    <div class="bold-handwritten">Function of mitochondria?</div>
+                    <div class="handwritten" style="color: #666; font-size: 12px;">Produces ATP through cellular...</div>
+                </div>
+                
+                <div class="card-list-item">
+                    <div class="bold-handwritten">What is osmosis?</div>
+                    <div class="handwritten" style="color: #666; font-size: 12px;">Movement of water across...</div>
+                </div>
+            </div>
+            
+            <div class="annotation bottom-left">Deck management & card list</div>
+        </div>
+
+        <!-- Screen 3: Add Card -->
+        <div class="screen-container">
+            <div class="screen-title">3. Add/Edit Card Screen</div>
+            <div class="phone-frame">
+                <div class="screen-header bold-handwritten">
+                    Add New Card
+                </div>
+                
+                <div class="handwritten" style="margin: 15px 0; font-weight: 700;">Question (Front)</div>
+                <div class="form-element textarea">
+                    <div class="handwritten" style="color: #666; font-style: italic;">Enter your question or term...</div>
+                </div>
+                
+                <div class="handwritten" style="margin: 15px 0; font-weight: 700;">Add Image (Optional)</div>
+                <div class="image-placeholder">
+                    📷 Tap to add image
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0;">
+                    <div class="sketch-button secondary handwritten">📷 Camera</div>
+                    <div class="sketch-button secondary handwritten">🖼️ Gallery</div>
+                </div>
+                
+                <div class="handwritten" style="margin: 15px 0; font-weight: 700;">Answer (Back)</div>
+                <div class="form-element textarea">
+                    <div class="handwritten" style="color: #666; font-style: italic;">Enter the answer or definition...</div>
+                </div>
+                
+                <div class="handwritten" style="margin: 15px 0; font-weight: 700;">Tags (Optional)</div>
+                <div class="form-element">
+                    <div class="handwritten" style="color: #666; font-style: italic;">e.g., difficult, review, chapter1</div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+                    <div class="sketch-button secondary bold-handwritten">Cancel</div>
+                    <div class="sketch-button primary bold-handwritten">Save Card</div>
+                </div>
+            </div>
+            
+            <div class="annotation top-right">Card creation form</div>
+        </div>
+
+        <!-- Screen 4: Study Mode -->
+        <div class="screen-container">
+            <div class="screen-title">4. Study Screen</div>
+            <div class="phone-frame">
+                <div class="screen-header bold-handwritten">
+                    Biology Chapter 5 - Card 5 of 24
+                </div>
+                
+                <div class="progress-sketch"></div>
+                
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="bold-handwritten" style="color: green;">3</div>
+                        <div class="handwritten">Correct</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten" style="color: red;">1</div>
+                        <div class="handwritten">Incorrect</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten">19</div>
+                        <div class="handwritten">Remaining</div>
+                    </div>
+                </div>
+                
+                <!-- Flashcard -->
+                <div class="flashcard-sketch">
+                    <div style="text-align: center; padding: 20px;">
+                        <div class="bold-handwritten" style="font-size: 1.1em; margin-bottom: 15px;">
+                            What are the main organelles found in a eukaryotic cell?
+                        </div>
+                        <div class="handwritten" style="color: #666;">
+                            👆 Tap to reveal answer
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Answer Buttons -->
+                <div style="text-align: center; margin: 15px 0;">
+                    <div class="bold-handwritten">Did you know this?</div>
+                </div>
+                
+                <div class="answer-buttons">
+                    <div class="sketch-button" style="background: #ffcccc; bold-handwritten">❌ No</div>
+                    <div class="sketch-button" style="background: #ccffcc; bold-handwritten">✅ Yes</div>
+                </div>
+                
+                <!-- Navigation -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 15px;">
+                    <div class="sketch-button secondary handwritten">← Prev</div>
+                    <div class="sketch-button secondary handwritten">🔄 Flip</div>
+                    <div class="sketch-button secondary handwritten">Next →</div>
+                </div>
+            </div>
+            
+            <div class="annotation side">Interactive study session with flip cards</div>
+        </div>
+
+        <!-- Screen 5: Results -->
+        <div class="screen-container">
+            <div class="screen-title">5. Results Screen</div>
+            <div class="phone-frame">
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 3em;">🏆</div>
+                    <div class="bold-handwritten" style="font-size: 1.4em;">Study Session Complete!</div>
+                    <div class="handwritten" style="color: #666;">Biology Chapter 5</div>
+                </div>
+                
+                <!-- Score Display -->
+                <div class="sketch-element" style="text-align: center; background: #f0f0f0; padding: 25px;">
+                    <div class="bold-handwritten" style="font-size: 2em;">18 / 24</div>
+                    <div class="bold-handwritten" style="font-size: 1.5em; color: green;">75%</div>
+                    <div class="handwritten">Great job! You're improving.</div>
+                </div>
+                
+                <!-- Detailed Stats -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="bold-handwritten" style="color: green;">18</div>
+                        <div class="handwritten">Correct</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten" style="color: red;">6</div>
+                        <div class="handwritten">Incorrect</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="bold-handwritten">3:42</div>
+                        <div class="handwritten">Time</div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="sketch-button primary bold-handwritten">
+                    🔄 Study All Cards Again
+                </div>
+                
+                <div class="sketch-button bold-handwritten">
+                    ⚠️ Review Incorrect Cards (6)
+                </div>
+                
+                <div class="sketch-button secondary bold-handwritten">
+                    📊 See Detailed Results
+                </div>
+                
+                <div class="sketch-button secondary bold-handwritten">
+                    🏠 Back to Deck
+                </div>
+            </div>
+            
+            <div class="annotation bottom-left">Session summary & next actions</div>
+        </div>
+
+        <!-- Screen 6: Review -->
+        <div class="screen-container">
+            <div class="screen-title">6. Review Screen</div>
+            <div class="phone-frame">
+                <div class="screen-header bold-handwritten">
+                    Detailed Results
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="nav-tabs-sketch">
+                    <div class="nav-tab active bold-handwritten">All (24)</div>
+                    <div class="nav-tab handwritten">✅ Correct (18)</div>
+                    <div class="nav-tab handwritten">❌ Incorrect (6)</div>
+                </div>
+                
+                <!-- Cards Review List -->
+                <div class="card-list-item">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="font-size: 1.2em; color: green;">✅</div>
+                        <div style="flex-grow: 1;">
+                            <div class="bold-handwritten">What are the main organelles?</div>
+                            <div class="handwritten" style="color: green; font-size: 12px;">Your answer was correct!</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-list-item">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="font-size: 1.2em; color: red;">❌</div>
+                        <div style="flex-grow: 1;">
+                            <div class="bold-handwritten">Function of mitochondria?</div>
+                            <div class="handwritten" style="color: red; font-size: 12px;">Marked as incorrect - review needed</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-list-item">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="font-size: 1.2em; color: green;">✅</div>
+                        <div style="flex-grow: 1;">
+                            <div class="bold-handwritten">What is osmosis?</div>
+                            <div class="handwritten" style="color: green; font-size: 12px;">Your answer was correct!</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-list-item">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="font-size: 1.2em; color: red;">❌</div>
+                        <div style="flex-grow: 1;">
+                            <div class="bold-handwritten">Prokaryote vs Eukaryote?</div>
+                            <div class="handwritten" style="color: red; font-size: 12px;">Marked as incorrect - review needed</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div style="margin-top: 20px;">
+                    <div class="sketch-button primary bold-handwritten">
+                        📚 Study Incorrect Cards Only
+                    </div>
+                    
+                    <div class="sketch-button secondary bold-handwritten">
+                        ← Back to Results
+                    </div>
+                </div>
+            </div>
+            
+            <div class="annotation top-right">Detailed card-by-card review</div>
+        </div>
+        
+        <!-- Summary Notes -->
+        <div class="screen-container" style="background: #fff; padding: 30px;">
+            <div class="screen-title">Technical Notes & Features</div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="sketch-element">
+                        <h5 class="bold-handwritten">📱 Core Features</h5>
+                        <ul class="handwritten">
+                            <li>✅ Create, edit, delete decks</li>
+                            <li>✅ Add cards with text + images</li>
+                            <li>✅ Camera/gallery integration</li>
+                            <li>✅ Study mode with flip cards</li>
+                            <li>✅ Self-scoring (Yes/No)</li>
+                            <li>✅ Progress tracking</li>
+                            <li>✅ Results & review screens</li>
+                            <li>✅ Search functionality</li>
+                            <li>✅ Offline-ready design</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sketch-element">
+                        <h5 class="bold-handwritten">🛠️ Tech Stack Integration</h5>
+                        <ul class="handwritten">
+                            <li><strong>Laravel/PHP:</strong> API endpoints, user auth</li>
+                            <li><strong>React Native:</strong> Mobile app framework</li>
+                            <li><strong>Bootstrap:</strong> Responsive UI components</li>
+                            <li><strong>AsyncStorage:</strong> Offline data persistence</li>
+                            <li><strong>Image Picker:</strong> Camera/gallery access</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="sketch-element">
+                        <h5 class="bold-handwritten">📊 User Experience Flow</h5>
+                        <div class="handwritten">
+                            <div style="border: 2px solid #000; padding: 10px; margin: 5px 0; text-align: center;">
+                                1. HOME SCREEN<br/>
+                                <small>View all decks, create new</small>
+                            </div>
+                            <div style="text-align: center;">↓</div>
+                            <div style="border: 2px solid #000; padding: 10px; margin: 5px 0; text-align: center;">
+                                2. DECK DETAIL<br/>
+                                <small>Manage cards, start study</small>
+                            </div>
+                            <div style="text-align: center;">↓</div>
+                            <div style="border: 2px solid #000; padding: 10px; margin: 5px 0; text-align: center;">
+                                3. STUDY MODE<br/>
+                                <small>Flip cards, self-grade</small>
+                            </div>
+                            <div style="text-align: center;">↓</div>
+                            <div style="border: 2px solid #000; padding: 10px; margin: 5px 0; text-align: center;">
+                                4. RESULTS & REVIEW<br/>
+                                <small>View scores, retry incorrect</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sketch-element">
+                        <h5 class="bold-handwritten">📐 Responsive Design</h5>
+                        <ul class="handwritten">
+                            <li>Mobile-first approach</li>
+                            <li>Touch-friendly tap targets (44px+)</li>
+                            <li>Bootstrap grid system</li>
+                            <li>Flexible layouts for tablet/desktop</li>
+                            <li>Accessible contrast & typography</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sketch-element" style="margin-top: 20px;">
+                <h5 class="bold-handwritten">🗂️ Data Structure Examples</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div style="border: 2px solid #000; padding: 15px; background: #f8f8f8;">
+                            <div class="bold-handwritten">Deck Object</div>
+                            <div class="handwritten" style="font-size: 12px; font-family: monospace;">
+                                {<br/>
+                                &nbsp;&nbsp;id: 1,<br/>
+                                &nbsp;&nbsp;title: "Biology Ch5",<br/>
+                                &nbsp;&nbsp;description: "Cell Structure",<br/>
+                                &nbsp;&nbsp;cards: [card1, card2...],<br/>
+                                &nbsp;&nbsp;created_at: "2024-01-01",<br/>
+                                &nbsp;&nbsp;last_studied: "2024-01-15"<br/>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="border: 2px solid #000; padding: 15px; background: #f8f8f8;">
+                            <div class="bold-handwritten">Card Object</div>
+                            <div class="handwritten" style="font-size: 12px; font-family: monospace;">
+                                {<br/>
+                                &nbsp;&nbsp;id: 1,<br/>
+                                &nbsp;&nbsp;deck_id: 1,<br/>
+                                &nbsp;&nbsp;question: "What are...",<br/>
+                                &nbsp;&nbsp;answer: "Nucleus, mito...",<br/>
+                                &nbsp;&nbsp;image_url: "/path/img.jpg",<br/>
+                                &nbsp;&nbsp;tags: ["difficult"]<br/>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="border: 2px solid #000; padding: 15px; background: #f8f8f8;">
+                            <div class="bold-handwritten">Study Session</div>
+                            <div class="handwritten" style="font-size: 12px; font-family: monospace;">
+                                {<br/>
+                                &nbsp;&nbsp;deck_id: 1,<br/>
+                                &nbsp;&nbsp;total_cards: 24,<br/>
+                                &nbsp;&nbsp;correct: 18,<br/>
+                                &nbsp;&nbsp;incorrect: 6,<br/>
+                                &nbsp;&nbsp;score_percent: 75,<br/>
+                                &nbsp;&nbsp;duration: "3:42"<br/>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sketch-element" style="margin-top: 20px;">
+                <h5 class="bold-handwritten">🎯 Key Implementation Notes</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="bold-handwritten" style="color: #666;">Laravel Backend:</div>
+                        <ul class="handwritten" style="font-size: 14px;">
+                            <li>RESTful API for decks & cards</li>
+                            <li>Image upload handling</li>
+                            <li>User authentication (Sanctum)</li>
+                            <li>Study session tracking</li>
+                            <li>Database migrations for data structure</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bold-handwritten" style="color: #666;">React Native Frontend:</div>
+                        <ul class="handwritten" style="font-size: 14px;">
+                            <li>Navigation stack (6 screens)</li>
+                            <li>AsyncStorage for offline data</li>
+                            <li>Image picker for camera/gallery</li>
+                            <li>Form validation & state management</li>
+                            <li>Bootstrap components integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="annotation top-right">Complete feature specification</div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="text-align: center; margin: 40px 0; padding: 20px;">
+            <div class="bold-handwritten" style="font-size: 1.2em;">📚 Ready for Development! 🚀</div>
+            <div class="handwritten" style="color: #666; margin-top: 10px;">
+                All 25 user stories covered • Mobile-responsive design • Laravel + React Native + Bootstrap ready
+            </div>
+        </div>
+    </div>
+</body>
+</html>
