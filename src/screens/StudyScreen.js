@@ -1,6 +1,7 @@
 // src/screens/StudyScreen.js
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, Pressable, Image } from 'react-native';
+import { View, Text, Pressable, Image, Platform } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useDecks } from '../state/DecksContext';
 
 function shuffle(array) {
@@ -16,6 +17,10 @@ export default function StudyScreen({ route, navigation }) {
     const { deckId, title, mode = 'all', wrongIds = [] } = route.params || {};
     const { decks } = useDecks();
     const deck = useMemo(() => decks.find(d => d.id === deckId), [decks, deckId]);
+
+    useFocusEffect(React.useCallback(() => {
+        if (Platform.OS === 'web') document.title = `DoCard – Study${title ? `: ${title}` : ''}`;
+    }, [title]));
 
     const initialQueue = useMemo(() => {
         if (!deck) return [];

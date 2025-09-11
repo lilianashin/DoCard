@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { Platform } from 'react-native';
 import { useDecks } from '../state/DecksContext';
 import { bs } from '../ui/colors';
 import { Card, Button, Input, Badge, Progress, SectionHeader, OutlineButton } from '../ui/components';
@@ -8,6 +10,10 @@ export default function HomeScreen({ navigation }) {
     const { decks, ready, addDeck } = useDecks();
     const [title, setTitle] = useState('');
     const [query, setQuery] = useState('');
+
+    useFocusEffect(React.useCallback(() => {
+        if (Platform.OS === 'web') document.title = 'DoCard – My Flashcards';
+    }, []));
 
     const { totalDecks, totalCards, avgScore } = useMemo(() => {
         const totalDecks = decks.length;

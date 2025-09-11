@@ -1,11 +1,16 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { View, Text, TextInput, Pressable, FlatList, Image, Platform, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useDecks } from '../state/DecksContext';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function DeckScreen({ route, navigation }) {
     const { deckId, title } = route.params || {};
     const { decks, addCard, removeCard, removeDeck } = useDecks();
+
+    useFocusEffect(React.useCallback(() => {
+        if (Platform.OS === 'web') document.title = `DoCard – ${title || 'Deck'}`;
+    }, [title]));
 
     const deck = useMemo(() => decks.find(d => d.id === deckId), [decks, deckId]);
 
@@ -63,7 +68,7 @@ export default function DeckScreen({ route, navigation }) {
             navigation.navigate('Home');
             return;
         }
-        Alert.alert('Delete deck?', `This will delete “${title}” and all its cards.`, [
+        Alert.alert('Delete deck?', `This will delete "${title}" and all its cards.`, [
             { text: 'Cancel', style: 'cancel' },
             { text: 'Delete', style: 'destructive', onPress: () => { removeDeck(deckId); navigation.navigate('Home'); } }
         ]);
