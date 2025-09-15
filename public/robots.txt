@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lilianashin.github.io/DoCard/sitemap.xml
